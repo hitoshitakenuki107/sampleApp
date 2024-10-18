@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hello World</title>
+</head>
+<body>
+<h1>Hello World</h1>
+<label for="number-input">ID(数値)を入力してください:</label><br>
+<form id="search-form">
+    <input type="number" id="number-input" name="number-input" required min="1">
+    <button type="submit">送信</button>
+</form>
+<h2 id="user-data"></h2>
+
+<script>
+    document.getElementById('search-form').addEventListener('submit', async function(event) {
+        event.preventDefault();
+        const id = document.getElementById('number-input').value;
+        try {
+            const response = await fetch(`http://localhost:8080/api/users/${id}`);
+            if (response.ok) {
+                const user = await response.json();
+                if (user.id !== undefined) {
+                    document.getElementById('user-data').innerHTML = `ID: ${user.id}<br>名前: ${user.name}<br>パスワード: ${user.pass}`;
+                } else {
+                    document.getElementById('user-data').innerHTML = 'ユーザーが見つかりません';
+                }
+            } else {
+                document.getElementById('user-data').innerHTML = 'ユーザーが見つかりません';
+            }
+        } catch (error) {
+            document.getElementById('user-data').innerHTML = 'ユーザーが見つかりません';
+        }
+    });
+</script>
+</body>
+</html>
