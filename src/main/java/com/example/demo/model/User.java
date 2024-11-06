@@ -4,6 +4,7 @@ public class User {
     private Long id;
     private String name;
     private String pass;
+    private String nickname;  // 新しいカラム
 
     // ゲッターとセッター
     public Long getId() {
@@ -29,5 +30,12 @@ public class User {
     public void setPass(String pass) {
         this.pass = pass;
     }
-}
 
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+}
